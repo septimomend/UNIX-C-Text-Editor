@@ -10,6 +10,7 @@
 
 #include "stdafx.h"
 #include "FileTypes.h"
+#include "RowController.h"
 
 class SyntaxController : public RowController
 {
