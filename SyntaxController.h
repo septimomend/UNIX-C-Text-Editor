@@ -9,16 +9,22 @@
 #pragma once
 
 #include "stdafx.h"
+#include "FileTypes.h"
 
 class SyntaxController
 {
-  char *filetype;
-  char **filematch;
-  char **keywords;
-  char *singleline_comment_start;
-  char *multiline_comment_start;
-  char *multiline_comment_end;
+public:
+  char *pFileType;
+  char **ppFileAccordance;
+  char **ppKeywords; // example: types, operator etc.
+  char *singlelineCommentStart; // '//' - singleline comment
+  char *multilineCommentStart; // '/*' - multiline comment start
+  char *multilineCommentEnd; // '*/' - multiline comment end
   int flags;
 };
 
-SyntaxController HLDB[] = {{"c", C_HL_extensions, C_HL_keywords, "//", "/*", "*/", HL_HIGHLIGHT_NUMBERS | HL_HIGHLIGHT_STRINGS}, };
+SyntaxController snx[] = {
+                          {"c", pFileExtension, pKeywords,
+                            "//", "/*", "*/",
+                            CLR_COLORFUL_NUMBERS | CLR_COLORFUL_STRINGS},
+                         };
