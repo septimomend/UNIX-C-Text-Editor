@@ -25,6 +25,9 @@
  #include <unistd.h>
 
 // defines
+#define _DEFAULT_SOURCE
+#define _BSD_SOURCE
+#define _GNU_SOURCE
 
 #define SEPT_CPP_EDITOR_VERSION "0.0.1"
 #define SEPT_TAB_STOP 8
@@ -32,7 +35,7 @@
 
 #define CTRL_KEY(k) ((k) & 0x1f)
 
-enum keys
+enum controlKeys
 {
   BACKSPACE = 127,
   ARROW_LEFT = 1000,
