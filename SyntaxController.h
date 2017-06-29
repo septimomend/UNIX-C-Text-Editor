@@ -11,9 +11,9 @@
 #include "stdafx.h"
 #include "FileTypes.h"
 
-class SyntaxController
+class SyntaxController : public RowController
 {
-public:
+protected:
   char *pFileType;
   char **ppFileAccordance;
   char **ppKeywords; // example: types, operator etc.
@@ -30,3 +30,5 @@ SyntaxController snx[] = {
                             "//", "/*", "*/",
                             CLR_COLORFUL_NUMBERS | CLR_COLORFUL_STRINGS},
                          };
+
+#define _SNX_ (sizeof(snx) / sizeof(snx[0]))
