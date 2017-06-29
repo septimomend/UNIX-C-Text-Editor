@@ -10,7 +10,7 @@
 
 #include "stdafx.h"
 
-struct SyntaxController
+class SyntaxController
 {
   char *filetype;
   char **filematch;
