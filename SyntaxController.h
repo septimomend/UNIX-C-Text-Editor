@@ -21,6 +21,8 @@ public:
   char *multilineCommentStart; // '/*' - multiline comment start
   char *multilineCommentEnd; // '*/' - multiline comment end
   int flags;
+
+  // TODO: add some functions
 };
 
 SyntaxController snx[] = {
