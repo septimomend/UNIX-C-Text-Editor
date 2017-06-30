@@ -25,11 +25,3 @@ protected:
 
   // TODO: add some functions
 };
-
-SyntaxController snx[] = {
-                          {"c", pFileExtension, pKeywords,
-                            "//", "/*", "*/",
-                            CLR_COLORFUL_NUMBERS | CLR_COLORFUL_STRINGS},
-                         };
-
-#define _SNX_ (sizeof(snx) / sizeof(snx[0]))
