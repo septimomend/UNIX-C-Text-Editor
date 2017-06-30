@@ -7,6 +7,8 @@
  *
  */
 
+#pragma once
+
 #include "stdafx.h"
 
 // TODO: add more keywords
