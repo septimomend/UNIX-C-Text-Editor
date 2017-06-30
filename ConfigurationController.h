@@ -14,6 +14,7 @@
 
 class ConfigurationController : public SyntaxController
 {
+protected:
   int configX, configY;
   int rowX;
   int disableRow; // disable
