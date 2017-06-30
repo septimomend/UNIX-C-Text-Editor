@@ -17,6 +17,7 @@
  #include <iostream>
  #include <stdarg.h>
  #include <cstdlib>
+ #include <cstring>
  #include <string>
  #include <sys/ioctl.h>
  #include <sys/types.h>
