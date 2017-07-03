@@ -41,9 +41,24 @@ void Terminal::rowModeOn()
   // setting flags
   //
   raw.c_iflag &= ~(BRKINT | ICRNL | INPCK | ISTRIP | IXON);
-  raw.c_oflag &= ~(OPOST); // Post-process output 
+  raw.c_oflag &= ~(OPOST); // Post-process output
   raw.c_cflag |= (CS8); // Character size 8 bits
   raw.c_lflag &= ~(ECHO | ICANON | IEXTEN | ISIG);
   raw.c_cc[VMIN] = 0;
   raw.c_cc[VTIME] = 1;
+}
+
+int Terminal::whatKey() // defines key pressing
+{
+  // TODO
+}
+
+int Terminal::getCursorPosition(int *row, int *column) // returns cursor position
+{
+  // TODO
+}
+
+int Terminal::getWindowSize(int *row, int *column) // returns size of window
+{
+  // TODO
 }
