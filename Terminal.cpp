@@ -25,19 +25,27 @@ void Terminal::emergencyDestruction(const char* str)
 
 void Terminal::rowModeOff()
 {
+  AllControllers all;
+  ConfigurationController* configObj = all.getConfigObj();
+  struct termios* termObj = configObj->getTermios();
+
   // the change will occur after all output written to STDIN_FILENO is transmitted,
   // and all input so far received but not read will be discarded before the change is made
-  if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &configObj.baseTermiosObj) == -1)
+  if (tcsetattr(STDIN_FILENO, TCSAFLUSH, termObj) == -1)
     emergencyDestruction("tcsetattr");
 }
 
 void Terminal::rowModeOn()
 {
-  if (tcgetattr(STDIN_FILENO, &configObj.baseTermiosObj) == -1)
+  AllControllers all;
+  ConfigurationController* configObj = all.getConfigObj();
+  struct termios* termObj = configObj->getTermios();
+
+  if (tcgetattr(STDIN_FILENO, termObj) == -1)
     emergencyDestruction("tcgetattr");
   atexit(rowModeOff);
 
-  struct termios raw = configObj.baseTermiosObj;
+  struct termios raw = *termObj;
   // setting flags
   //
   raw.c_iflag &= ~(BRKINT | ICRNL | INPCK | ISTRIP | IXON);
