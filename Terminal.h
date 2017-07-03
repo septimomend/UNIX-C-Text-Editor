@@ -16,9 +16,12 @@ class Terminal
 {
 public:
   Terminal(); // cstr
-  void emergencyDestruction(const char* str);
-  void rowModeOn();
+
+  void emergencyDestruction(const char* str); // when something wrong
+  void rowModeOn(); //
   void rowModeOff();
 
-  // TODO: add more
+  int whatKey(); // defines key pressing
+  int getCursorPosition(int *row, int *column); // returns cursor position
+  int getWindowSize(int *row, int *column); // returns size of window
 };
