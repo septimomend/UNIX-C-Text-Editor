@@ -15,6 +15,10 @@
 class ConfigurationController : public SyntaxController
 {
 public:
+  ConfigurationController();
+  struct termios getTermios() const;
+
+protected:
   int configX, configY;
   int rowX;
   int disableRow; // disable
