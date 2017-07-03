@@ -30,4 +30,4 @@ private:
   ConfigurationController configObj;
 
   #define _SNX_ (sizeof(snx) / sizeof(snx[0]))
-}
+};

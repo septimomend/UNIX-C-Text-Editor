@@ -33,4 +33,4 @@ protected:
   RowController *pRowObj; // RowController's object
   SyntaxController *pSyntaxObj; // SyntaxController's object
   struct termios baseTermiosObj; // for working with terminal's i/o interface
-}
+};
