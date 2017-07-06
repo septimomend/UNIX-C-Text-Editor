@@ -150,7 +150,28 @@ int Terminal::whatKey() // defines key pressing
 
 int Terminal::getCursorPosition(int *row, int *column) // returns cursor position
 {
-  // TODO
+  char buff[32];
+  unsigned int i = 0;
+
+  if (write(STDOUT_FILENO, "\x1b[6n", 4) != 4) // output 4 bytes to standard output device
+    return -1;
+
+  while (i < sizeof(buff) - 1)
+  {
+    if (read(STDIN_FILENO, &buff[i], 1) != 1) // read from ouput to buff 1 byte
+      break;
+    if (buff[i] == 'R')
+      break;
+    i++;
+  }
+  buff[i] = '\0';
+
+  if (buff[0] != '\x1b' || buff[1] != '[') // if wrong data
+    return -1;
+  if (sscanf(&buff[2], "%d;%d", row, column) != 2) // read data from buff and check number of fields
+    return -1;
+
+  return 0;
 }
 
 int Terminal::getWindowSize(int *row, int *column) // returns size of window
