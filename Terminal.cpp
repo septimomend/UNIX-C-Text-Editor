@@ -176,5 +176,19 @@ int Terminal::getCursorPosition(int *row, int *column) // returns cursor positio
 
 int Terminal::getWindowSize(int *row, int *column) // returns size of window
 {
-  // TODO
+  struct winsize ws; // #include <sys/ioctl.h> - http://www.delorie.com/djgpp/doc/libc/libc_495.html
+
+  if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws) == -1 || ws.ws_col == 0) // do operation TIOCGWINSZ in standard output and fill
+                                                                     // window's size to ws
+  {
+    if (write(STDOUT_FILENO, "\x1b[999C\x1b[999B", 12) != 12)
+      return -1;
+    return getCursorPosition(row, column);
+  }
+  else
+  {
+    *column = ws.ws_col;
+    *row = ws.ws_row;
+    return 0;
+  }
 }
