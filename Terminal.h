@@ -11,6 +11,7 @@
 
 #include "stdafx.h"
 #include "AllControllers.h"
+#include "CommonFunc.h"
 
 class Terminal
 {
@@ -24,4 +25,9 @@ public:
   int whatKey(); // defines key pressing
   int getCursorPosition(int *row, int *column); // returns cursor position
   int getWindowSize(int *row, int *column); // returns size of window
+
+private:
+  AllControllers all;
+  ConfigurationController* configObj = all.getConfigObj();
+  Common cmmn(all);
 };
