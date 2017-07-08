@@ -15,6 +15,11 @@
 class Adbfr
 {
 public:
+  Adbfr(); // cstr
+
   char *bfr;
-  int len;
+  int sizeBfr;
+
+  void reallocateBfr(const char *content, int size);
+  void freeBfr();
 };
