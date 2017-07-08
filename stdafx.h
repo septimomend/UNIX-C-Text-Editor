@@ -36,6 +36,8 @@
 
 #define CTRL_KEY(k) ((k) & 0x1f)
 
+#define ADBFR_IMPL {NULL, 0}
+
 enum controlKeys
 {
   BACKSPACE = 127,
