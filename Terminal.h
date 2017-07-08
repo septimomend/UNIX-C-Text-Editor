@@ -28,6 +28,7 @@ public:
 
 private:
   AllControllers all;
-  ConfigurationController* configObj = all.getConfigObj();
+  truct termios* termObj;
+  ConfigurationController* configObj;
   Common cmmn(all);
 };

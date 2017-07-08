@@ -12,6 +12,8 @@
 
 Terminal::Terminal() // cstr
 {
+  ConfigurationController* configObj = all.getConfigObj();
+  struct termios* termObj = configObj->getTermios();
 }
 
 /*
@@ -31,8 +33,6 @@ void Terminal::emergencyDestruction(const char* str)
 
 void Terminal::rowModeOff()
 {
-  struct termios* termObj = configObj->getTermios();
-
   // the change will occur after all output written to STDIN_FILENO is transmitted,
   // and all input so far received but not read will be discarded before the change is made
   if (tcsetattr(STDIN_FILENO, TCSAFLUSH, termObj) == -1)
@@ -41,21 +41,18 @@ void Terminal::rowModeOff()
 
 void Terminal::rowModeOn()
 {
-  struct termios* termObj = configObj->getTermios();
-
   if (tcgetattr(STDIN_FILENO, termObj) == -1)
     emergencyDestruction("tcgetattr");
   atexit(rowModeOff);
 
-  struct termios raw = *termObj;
   // setting flags
   //
-  raw.c_iflag &= ~(BRKINT | ICRNL | INPCK | ISTRIP | IXON);
-  raw.c_oflag &= ~(OPOST); // Post-process output
-  raw.c_cflag |= (CS8); // Character size 8 bits
-  raw.c_lflag &= ~(ECHO | ICANON | IEXTEN | ISIG);
-  raw.c_cc[VMIN] = 0;
-  raw.c_cc[VTIME] = 1;
+  termOb->c_iflag &= ~(BRKINT | ICRNL | INPCK | ISTRIP | IXON);
+  termOb->c_oflag &= ~(OPOST); // Post-process output
+  termOb->c_cflag |= (CS8); // Character size 8 bits
+  termOb->c_lflag &= ~(ECHO | ICANON | IEXTEN | ISIG);
+  termOb->c_cc[VMIN] = 0;
+  termOb->c_cc[VTIME] = 1;
 }
 
 int Terminal::whatKey() // defines key pressing
@@ -89,7 +86,7 @@ int Terminal::whatKey() // defines key pressing
         if (read(STDIN_FILENO, &sequence[2], 1) != 1)
           return '\x1b'; // if escape calls 3rd time - exit
         if (sequence[2] == '~')
-        {
+        {Termios
           switch (sequence[1])
           {
             case '1':
@@ -113,7 +110,7 @@ int Terminal::whatKey() // defines key pressing
       {
         switch (sequence[1])
         {
-          case 'A':
+          case 'A':  ConfigurationController
             return ARROW_UP;
           case 'B':
             return ARROW_DOWN;
