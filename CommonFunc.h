@@ -9,7 +9,7 @@
 #pragma once
 #include "stdafx.h"
 
-class Common
+class Common : public AllControllers
 {
 public:
   Common(); // cstr
