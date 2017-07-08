@@ -11,7 +11,7 @@
 #include "CommonFunc.h"
 
 
-Common::Common(AllControllers* all) : m_cnfg(all->getConfigObj)
+Common::Common(AllControllers* all) : *m_cnfg(all->getConfigObj())
 {
 }
 
@@ -53,22 +53,30 @@ void Common::updateScreen()
   m_abfr.reallocateBfr("\x1b[?25l", 6); // reallocate data
   m_abfr.reallocateBfr("\x1b[H", 3);    // reallocate data
 
-  editorDrawRows(&ab);
-  editorDrawStatusBar(&ab);
-  editorDrawMessageBar(&ab);
+  /*
+   * draw rows, message bar and status bar
+   */
+  drawRows(&m_abfr);
+  drawStatusBar(&m_abfr);
+  drawMessageBar(&m_abfr);
 
-  char buf[32];
-  snprintf(buf, sizeof(buf), "\x1b[%d;%dH", (E.cy - E.rowoff) + 1,
-                                            (E.rx - E.coloff) + 1);
-  abAppend(&ab, buf, strlen(buf));
+  /*
+   * write to buff cursor | position
+   */
+  char buff[32];
+  snprintf(buff, sizeof(buff), "\x1b[%d;%dH", (m_cnfg->configY - m_cnfg->disableRow) + 1, (m_cnfg->rowX - m_cnfg->disableClr) + 1);
+  m_abfr.reallocateBfr(buff, strlen(buff));
 
-  abAppend(&ab, "\x1b[?25h", 6);
+  m_abfr.reallocateBfr("\x1b[?25h", 6);
 
+  /*
+   * update screen
+   */
   write(STDOUT_FILENO, ab.b, ab.len);
-  abFree(&ab);
+  m_abfr.freeBfr(); // free memory
 }
 
 char* Common::callPrompt(char *prompt, void (*callback)(char *, int))
 {
-
+  // TODO
 }
