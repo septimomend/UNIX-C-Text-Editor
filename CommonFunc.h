@@ -12,6 +12,7 @@
 class Common
 {
 public:
+  Common(); // cstr
   void statusMsg(const char *fmt, ...);
   void updateScreen();
   char *callPrompt(char *prompt, void (*callback)(char *, int));
