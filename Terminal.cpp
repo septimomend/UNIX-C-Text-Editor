@@ -31,8 +31,6 @@ void Terminal::emergencyDestruction(const char* str)
 
 void Terminal::rowModeOff()
 {
-  AllControllers all;
-  ConfigurationController* configObj = all.getConfigObj();
   struct termios* termObj = configObj->getTermios();
 
   // the change will occur after all output written to STDIN_FILENO is transmitted,
@@ -43,8 +41,6 @@ void Terminal::rowModeOff()
 
 void Terminal::rowModeOn()
 {
-  AllControllers all;
-  ConfigurationController* configObj = all.getConfigObj();
   struct termios* termObj = configObj->getTermios();
 
   if (tcgetattr(STDIN_FILENO, termObj) == -1)
