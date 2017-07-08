@@ -19,7 +19,7 @@ public:
   ConfigurationController getConfigObj() const;
   // TODO: public data
 
-  ConfigurationController
+
 private:
   SyntaxController snx[] = {
                             {"c", pFileExtension, pKeywords,
