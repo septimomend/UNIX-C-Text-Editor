@@ -10,7 +10,7 @@
 #pragma once
 
 #include "stdafx.h"
-#include "ConfigurationController"
+#include "ConfigurationController.h"
 
 class AllControllers : public ConfigurationController
 {

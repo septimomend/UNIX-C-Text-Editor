@@ -11,7 +11,7 @@
 #include "CommonFunc.h"
 
 
-Common::Common(AllControllers* all) : *m_cnfg(all->getConfigObj())
+Common::Common(AllControllers* all) : m_cnfg(all->getConfigObj())
 {
 }
 
@@ -130,6 +130,7 @@ char* Common::callPrompt(char *prompt, void (*callback)(char*, int))
 
     if (callback)
       callback(bfr, key);   // call of callback
+  }
 }
 
 void Common::moveCursor(int key)
