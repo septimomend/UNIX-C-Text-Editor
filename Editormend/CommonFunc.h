@@ -11,6 +11,7 @@
 #include "stdafx.h"
 #include "AllControllers.h"
 #include "AdditionalBuffer.h"
+#include "Terminal.h"
 
 class Common : public AllControllers
 {
@@ -41,4 +42,5 @@ public:
 private:
   ConfigurationController* m_cnfg;
   Adbfr m_abfr;
+  Terminal tml;
 };
