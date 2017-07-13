@@ -11,7 +11,7 @@
  #define _BSD_SOURCE
  #define _GNU_SOURCE
 
- #include <ctype.h>
+ #include <cctype>
  #include <errno.h>
  #include <fcntl.h>
  #include <iostream>
