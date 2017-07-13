@@ -28,7 +28,7 @@ public:
 
 private:
   AllControllers all;
-  truct termios* termObj;
+  struct termios* termObj;
   ConfigurationController* configObj;
   Common cmmn(all);
 };
