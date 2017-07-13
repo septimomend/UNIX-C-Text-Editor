@@ -131,3 +131,13 @@ char* Common::callPrompt(char *prompt, void (*callback)(char*, int))
     if (callback)
       callback(bfr, key);   // call of callback
 }
+
+void Common::moveCursor(int key)
+{
+  // TODO
+}
+
+void Common::processingKeypress()
+{
+  // TODO
+}
