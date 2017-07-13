@@ -32,12 +32,8 @@ public:
   void updateScreen();
   char *callPrompt(char *prompt, void (*callback)(char *, int));
   void scrolling();
-  /*
-   * TODO
-   *
-   * void moveCursor(int key);
-   * void processKeypress();
-   */
+  void moveCursor(int key);
+  void processingKeypress();
 
 private:
   ConfigurationController* m_cnfg;
