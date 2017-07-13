@@ -30,7 +30,7 @@
 #define _BSD_SOURCE
 #define _GNU_SOURCE
 
-#define SEPT_CPP_EDITOR_VERSION "0.0.1"
+#define EDITORMEND_VERSION "0.0.1"
 #define SEPT_TAB_STOP 8
 #define SEPT_QUIT_TIMES 2 // click times for exit
 
