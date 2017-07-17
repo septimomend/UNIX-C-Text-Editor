@@ -11,7 +11,7 @@
 #include "CommonFunc.h"
 
 
-Common::Common(AllControllers* all) : m_cnfg(all->getConfigObj())
+Common::Common(AllControllers* all) : m_pCnfg(all->getConfigObj())
 {
 }
 
@@ -64,7 +64,7 @@ void Common::updateScreen()
    * write to buff cursor | position
    */
   char buff[32];
-  snprintf(buff, sizeof(buff), "\x1b[%d;%dH", (m_cnfg->configY - m_cnfg->disableRow) + 1, (m_cnfg->rowX - m_cnfg->disableClr) + 1);
+  snprintf(buff, sizeof(buff), "\x1b[%d;%dH", (m_pCnfg->configY - m_pCnfg->disableRow) + 1, (m_pCnfg->rowX - m_pCnfg->disableClr) + 1);
   m_abfr.reallocateBfr(buff, strlen(buff));
 
   m_abfr.reallocateBfr("\x1b[?25h", 6);
@@ -135,7 +135,48 @@ char* Common::callPrompt(char *prompt, void (*callback)(char*, int))
 
 void Common::moveCursor(int key)
 {
-  // TODO
+  // instancing RowController
+  // if empty - to zero position, else to the end of row
+  //
+  RowController* pRowctrl = (m_pCnfg->configY >= m_pCnfg->rowCount) ? NULL : &m_pCnfg->pRowObj[m_pCnfg->configY];
+
+  switch (key)
+  {
+    case ARROW_LEFT:
+      if (m_pCnfg->configX != 0)                                    // if horizontal position isn't zero
+      {
+        m_pCnfg->configX--;                                         // move left
+      }
+      else if (m_pCnfg->configY > 0)                                // else if there is at least 1 row
+      {
+        m_pCnfg->configY--;                                         // move to that row
+        m_pCnfg->configX = m_pCnfg->pRowObj[m_pCnfg->configY].size; // and to the end of that row
+      }
+      break;
+    case ARROW_RIGHT:
+      if (pRowctrl && m_pCnfg->configX < pRowctrl->size)            // if there is row and if cursor is not in the end of row
+      {
+        m_pCnfg->configX++;                                         // move cursor right along of row
+      }
+      else if (pRowctrl && m_pCnfg->configX == pRowctrl->size)      // if there is row and cursor in the end of this row
+      {
+        m_pCnfg->configY++;                                         // move to next row
+        E.cx = 0;                                                   // on zero position
+      }
+      break;
+    case ARROW_UP:
+      if (m_pCnfg->configY != 0)                                    // if there is at least 1 row
+      {
+        m_pCnfg->configY--;                                         // move up
+      }
+      break;
+    case ARROW_DOWN:
+      if (m_pCnfg->configY < m_pCnfg->rowCount)                     // if cursor is not on last row
+      {
+        m_pCnfg->configY++;                                         // move down
+      }
+      break;
+  }
 }
 
 void Common::processingKeypress()
