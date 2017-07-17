@@ -42,6 +42,7 @@ public:
    void setNewRow();
    void deleteChar();
    void save();
+   void find();
 
 private:
   ConfigurationController* m_pCnfg;
