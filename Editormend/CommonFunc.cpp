@@ -15,6 +15,21 @@ Common::Common(AllControllers* all) : m_pCnfg(all->getConfigObj())
 {
 }
 
+void Common::setChar(int c)
+{
+  // TODO
+}
+void Common::setNewRow()
+{
+  // TODO
+}
+
+void Common::deleteChar()
+{
+  // TODO
+}
+
+
 void Common::drawRows(Adbfr* abfr);
 {
   // TODO
@@ -181,5 +196,91 @@ void Common::moveCursor(int key)
 
 void Common::processingKeypress()
 {
-  // TODO
+  static int sQuitCounter = EDITORRMEND_QUIT_COUNTER;                // counter clicking for exit
+
+  int key = whatKey();                                               // read key
+
+  switch (key)
+  {
+    case '\r':                                                       // if carriage return (Enter key)
+      setNewRow();                                                   // set newline
+      break;
+
+    case CTRL_KEY('q'):
+      if (m_pCnfg->smear && sQuitCounter > 0)                        // if there is any changes and counter > 0
+      {
+        statusMsg("! File was changed and unsaved and data can be lost after exiting. "
+                  "Press Ctrl-Q %d more times to exit.", sQuitCounter);
+        sQuitCounter--;                                              // counter decrement
+        return;
+      }
+      write(STDOUT_FILENO, "\x1b[2J", 4);
+      write(STDOUT_FILENO, "\x1b[H", 3);
+      exit(0);
+      break;
+
+    case CTRL_KEY('s'):
+      save();                                                       // TODO: save changes
+      break;
+
+    case HOME_KEY:
+    m_pCnfg->configX = 0;                                           // to the row beginning
+      break;
+
+    case END_KEY:
+      if (m_pCnfg->configY < m_pCnfg->rowCount)                     // if not last row
+        m_pCnfg->configX = m_pCnfg->pRowObj[m_pCnfg->configY].size; // to the end of row
+      break;
+
+    case CTRL_KEY('f'):
+      find();                                                       // find func
+      break;
+
+    case BACKSPACE:
+    case CTRL_KEY('h'):
+    case DELETE_KEY:
+      if (key == DELETE_KEY)
+        moveCursor(ARROW_RIGHT);                                    // move cursor right
+      deleteChar();                                                 // delete char
+      break;
+
+    // page up/down
+    //
+    case PAGE_UP:
+    case PAGE_DOWN:
+      {
+        if (key == PAGE_UP)
+        {
+          m_pCnfg->configY = m_pCnfg->disableRow;                    // move page up
+        }
+        else if (key == PAGE_DOWN)
+        {
+          m_pCnfg->configY = m_pCnfg->disableRow + m_pCnfg->enableRow - 1; // move page down
+          if (m_pCnfg->configY > m_pCnfg->rowCount)
+            m_pCnfg->configY = m_pCnfg->rowCount;
+        }
+
+        int times = m_pCnfg->enableRow;
+        while (times--)
+          moveCursor(key == PAGE_UP ? ARROW_UP : ARROW_DOWN);
+      }
+      break;
+
+    case ARROW_UP:
+    case ARROW_DOWN:
+    case ARROW_LEFT:
+    case ARROW_RIGHT:
+      moveCursor(key);
+      break;
+
+    case CTRL_KEY('l'):
+    case '\x1b':
+      break;
+
+    default:
+      setChar(key);   // just write chars
+      break;
+  }
+
+  sQuitCounter = EDITORRMEND_QUIT_COUNTER;
 }
