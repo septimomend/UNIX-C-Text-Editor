@@ -35,6 +35,14 @@ public:
   void moveCursor(int key);
   void processingKeypress();
 
+  /*
+   * editor operations
+   */
+   void setChar(int c);
+   void setNewRow();
+   void deleteChar();
+   void save();
+
 private:
   ConfigurationController* m_pCnfg;
   Adbfr m_abfr;
