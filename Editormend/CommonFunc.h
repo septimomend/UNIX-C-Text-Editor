@@ -36,7 +36,7 @@ public:
   void processingKeypress();
 
 private:
-  ConfigurationController* m_cnfg;
+  ConfigurationController* m_pCnfg;
   Adbfr m_abfr;
   Terminal tml;
 };
