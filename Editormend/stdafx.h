@@ -32,7 +32,7 @@
 
 #define EDITORMEND_VERSION "0.0.1"
 #define SEPT_TAB_STOP 8
-#define SEPT_QUIT_TIMES 2 // click times for exit
+#define EDITORRMEND_QUIT_COUNTER 2 
 
 #define CTRL_KEY(k) ((k) & 0x1f)
 
