@@ -29,6 +29,15 @@ void Common::deleteChar()
   // TODO
 }
 
+void Common::save()
+{
+  // TODO
+}
+
+void Common::find()
+{
+  // TODO
+}
 
 void Common::drawRows(Adbfr* abfr);
 {
