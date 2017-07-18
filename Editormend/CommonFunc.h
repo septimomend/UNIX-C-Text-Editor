@@ -38,7 +38,7 @@ public:
   /*
    * row operations
    */
-  void setRow(int to, char *str, size_t sz);
+  void setRow(int num, char *str, size_t sz);
   void setRowChar(RowController *row, int to, int ch);
 
   /*
