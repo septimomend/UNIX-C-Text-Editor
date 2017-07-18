@@ -36,8 +36,14 @@ public:
   void processingKeypress();
 
   /*
+   * syntax operations
+   */
+  void updateSyntax(RowController *row);
+
+  /*
    * row operations
    */
+  void updateRow(RowController *row);
   void setRow(int num, char *str, size_t sz);
   void setRowChar(RowController *row, int to, int ch);
 
