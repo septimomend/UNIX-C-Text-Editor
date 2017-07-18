@@ -38,7 +38,7 @@ public:
   /*
    * editor operations
    */
-   void setChar(int c);
+   void setChar(int ch);
    void setNewline();
    void deleteChar();
    void save();
