@@ -15,6 +15,16 @@ Common::Common(AllControllers* all) : m_pCnfg(all->getConfigObj())
 {
 }
 
+void Common::updateSyntax(RowController *row)
+{
+  // TODO
+}
+
+void Common::updateRow(RowController *row)
+{
+  // TODO
+}
+
 void Common::setRow(int num, char *str, size_t sz)
 {
   if (num < 0 || num > m_pCnfg->rowCount)  // if number is out of row numbers range
