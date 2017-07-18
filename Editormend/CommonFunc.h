@@ -39,7 +39,7 @@ public:
    * editor operations
    */
    void setChar(int c);
-   void setNewRow();
+   void setNewline();
    void deleteChar();
    void save();
    void find();
