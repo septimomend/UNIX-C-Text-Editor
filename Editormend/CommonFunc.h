@@ -36,13 +36,19 @@ public:
   void processingKeypress();
 
   /*
+   * row operations
+   */
+  void setRow(int to, char *str, size_t sz);
+  void setRowChar(RowController *row, int to, int ch);
+
+  /*
    * editor operations
    */
-   void setChar(int ch);
-   void setNewline();
-   void deleteChar();
-   void save();
-   void find();
+  void setChar(int ch);
+  void setNewline();
+  void deleteChar();
+  void save();
+  void find();
 
 private:
   ConfigurationController* m_pCnfg;
