@@ -1,10 +1,10 @@
 // FileTypes.h -- header file
 /*
+ * Author: Ivan Chapkailo (septimomend)
+ * Date:   29.06.2017
  *
- * Author: septimomend (Ivan Chapkailo)
- *
- * 29.06.2017
- *
+ * © 2017 Ivan Chapkailo. All rights reserved
+ * e-mail: chapkailo.ivan@gmail.com
  */
 
 #pragma once
