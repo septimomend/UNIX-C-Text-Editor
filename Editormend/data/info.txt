@@ -1,0 +1,11 @@
+Author: Ivan Chapkailo (septimomend)
+Date:   20.07.2017
+
+© 2017 Ivan Chapkailo. All rights reserved
+
+This is folder for project data.
+
+Notice TODO:
+- Add icon
+- Add resources
+- Add more other resources
