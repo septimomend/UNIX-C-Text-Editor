@@ -17,10 +17,10 @@ class SyntaxController : public RowController
 protected:
   char *pFileType;
   char **ppFileAccordance;
-  char **ppKeywords; // example: types, operator etc.
-  char *singlelineCommentStart; // '//' - singleline comment
-  char *multilineCommentStart; // '/*' - multiline comment start
-  char *multilineCommentEnd; // '*/' - multiline comment end
+  char **ppKeywords;              // example: types, operator etc.
+  char *pSinglelineCommentStart;  // '//' - singleline comment
+  char *pMultilineCommentStart;   // '/*' - multiline comment start
+  char *pMultilineCommentEnd;     // '*/' - multiline comment end
   int flags;
 
   // TODO: add some functions
