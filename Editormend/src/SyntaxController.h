@@ -1,11 +1,12 @@
 // SyntaxController.h -- header file
 /*
+ * Author: Ivan Chapkailo (septimomend)
+ * Date:   27.06.2017
  *
- * Author: septimomend (Ivan Chapkailo)
- *
- * 27.06.2017
- *
+ * © 2017 Ivan Chapkailo. All rights reserved
+ * e-mail: chapkailo.ivan@gmail.com
  */
+ 
 #pragma once
 
 #include "stdafx.h"

@@ -1,10 +1,10 @@
-// precompiled header
+// stdafx.h -- precompiled header
 /*
+ * Author: Ivan Chapkailo (septimomend)
+ * Date:   27.06.2017
  *
- * Author: septimomend (Ivan Chapkailo)
- *
- * 27.06.2017
- *
+ * © 2017 Ivan Chapkailo. All rights reserved
+ * e-mail: chapkailo.ivan@gmail.com
  */
 
  #define _DEFAULT_SOURCE
@@ -32,7 +32,7 @@
 
 #define EDITORMEND_VERSION "0.0.1"
 #define SEPT_TAB_STOP 8
-#define EDITORRMEND_QUIT_COUNTER 2 
+#define EDITORRMEND_QUIT_COUNTER 2
 
 #define CTRL_KEY(k) ((k) & 0x1f)
 

@@ -1,13 +1,14 @@
 // CommonFunc.h -- header file
 /*
+ * Author: Ivan Chapkailo (septimomend)
+ * Date:   30.06.2017
  *
- * Author: septimomend (Ivan Chapkailo)
- *
- * 30.06.2017
- *
+ * © 2017 Ivan Chapkailo. All rights reserved
+ * e-mail: chapkailo.ivan@gmail.com
  */
 
 #pragma once
+
 #include "stdafx.h"
 #include "AllControllers.h"
 #include "AdditionalBuffer.h"
