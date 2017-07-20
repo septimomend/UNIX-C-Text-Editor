@@ -38,6 +38,7 @@ public:
   /*
    * syntax operations
    */
+  int isDelimiter(int key);
   void updateSyntax(RowController *row);
 
   /*
