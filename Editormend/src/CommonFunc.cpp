@@ -202,6 +202,11 @@ int Common::colorizeSyntax(int clr)
   }
 }
 
+void Common::pickSyntaxClr()
+{
+  // TODO
+}
+
 void Common::updateRow(RowController *row)
 {
   // TODO
@@ -243,7 +248,7 @@ void Common::setRow(int num, char *str, size_t sz)
 
 void Common::setRowChar(RowController *row, int to, int ch)
 {
-
+  // TODO
 }
 
 void Common::setChar(int ch)
@@ -255,6 +260,7 @@ void Common::setChar(int ch)
   setRowChar(&m_pCnfg->pRowObj[m_pCnfg->configY], m_pCnfg->configX, ch); // set char to last position in last row
   m_pCnfg->configX++;                         // and increment row lenght for cursor
 }
+
 void Common::setNewline()
 {
   // TODO
