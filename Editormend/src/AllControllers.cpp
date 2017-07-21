@@ -18,9 +18,9 @@ AllControllers::AllControllers()
 {
 }
 
-ConfigurationController AllControllers::getConfigObj() const
+ConfigurationController* AllControllers::getConfigObj() const
 {
-  return configObj;
+  return &configObj;
 }
 
 // TODO: add functions definitions

@@ -16,7 +16,7 @@ class AllControllers : public ConfigurationController
 {
 public:
   AllControllers(); // cstr
-  ConfigurationController getConfigObj() const;
+  ConfigurationController* getConfigObj() const;
   // TODO: public data
 
 
