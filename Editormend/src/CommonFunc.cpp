@@ -17,7 +17,10 @@ Common::Common(AllControllers* all) : m_pCnfg(all->getConfigObj())
 
 int Common::isDelimiter(int key)
 {
-  // TODO
+  // return value if this space OR this is end of file symbol
+  // OR key is one of ,.()+-/*=~%<>[]; symbols
+  //
+  return isspace(key) || key == '\0' || strchr(",.()+-/*=~%<>[];", key) != NULL;
 }
 
 void Common::updateSyntax(RowController *row)
