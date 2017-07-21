@@ -177,6 +177,31 @@ void Common::updateSyntax(RowController *row)
     updateSyntax(&m_pCnfg->pRowObj[row->index + 1]);
 }
 
+int Common::colorizeSyntax(int clr)
+{
+  // returning of matched color value
+  //
+  switch (clr)
+  {
+    case HL_COMMENT:
+    case HL_MLCOMMENT:
+      return 36;
+    case HL_KEYWORD1:
+      return 33;
+    case HL_KEYWORD2:
+      return 32;
+    case HL_STRING:
+      return 35;
+    case HL_NUMBER:
+      return 31;
+    case HL_MATCH:
+      return 34;
+
+    default:
+      return 37;
+  }
+}
+
 void Common::updateRow(RowController *row)
 {
   // TODO
