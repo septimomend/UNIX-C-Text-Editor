@@ -37,14 +37,6 @@ public:
   void processingKeypress();
 
   /*
-   * syntax operations
-   */
-  int isDelimiter(int key);
-  void updateSyntax(RowController *row);
-  int colorizeSyntax(int clr);
-  void pickSyntaxClr();
-
-  /*
    * row operations
    */
   void updateRow(RowController *row);
