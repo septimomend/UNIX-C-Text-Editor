@@ -11,7 +11,6 @@
 
 #include "stdafx.h"
 #include "AllControllers.h"
-#include "CommonFunc.h"
 
 class Terminal
 {
