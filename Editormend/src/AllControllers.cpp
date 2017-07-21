@@ -23,4 +23,7 @@ ConfigurationController* AllControllers::getConfigObj() const
   return &configObj;
 }
 
-// TODO: add functions definitions
+void AllControllers::pickSyntaxClr()
+{
+  // TODO
+}

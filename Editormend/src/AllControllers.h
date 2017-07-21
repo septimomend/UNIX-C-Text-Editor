@@ -16,8 +16,10 @@ class AllControllers : public ConfigurationController
 {
 public:
   AllControllers(); // cstr
+
   ConfigurationController* getConfigObj() const;
-  // TODO: public data
+
+  void pickSyntaxClr();
 
 
 private:

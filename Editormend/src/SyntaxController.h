@@ -24,7 +24,6 @@ public:
   int isDelimiter(int key);
   void updateSyntax(RowController *row);
   int colorizeSyntax(int clr);
-  void pickSyntaxClr();
 
 protected:
   char *pFileType;

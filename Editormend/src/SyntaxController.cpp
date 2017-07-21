@@ -7,6 +7,15 @@
  * e-mail: chapkailo.ivan@gmail.com
  */
 
+#include "stdafx.h"
+#include "SyntaxController.h"
+
+using namespace std;
+
+SyntaxController::SyntaxController()
+{
+}
+
 int SyntaxController::isDelimiter(int key)
 {
   // return value if this space OR this is end of file symbol
@@ -192,9 +201,4 @@ int SyntaxController::colorizeSyntax(int clr)
     default:
       return 37;
   }
-}
-
-void SyntaxController::pickSyntaxClr()
-{
-  // TODO
 }
