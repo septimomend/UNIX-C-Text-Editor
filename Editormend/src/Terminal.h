@@ -26,11 +26,10 @@ public:
   int getCursorPosition(int *row, int *column); // returns cursor position
   int getWindowSize(int *row, int *column);     // returns size of window
 
-  AllControllers getAllControllerObj() const;
+  AllControllers* getAllControllerObj() const;
 
 private:
   AllControllers all;
   struct termios* termObj;
   ConfigurationController* configObj;
-  Common cmmn(all);
 };

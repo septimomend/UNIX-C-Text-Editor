@@ -16,6 +16,12 @@ Terminal::Terminal() // cstr
   struct termios* termObj = configObj->getTermios();
 }
 
+
+AllControllers* Terminal::getAllControllerObj() const
+{
+  return &all;
+}
+
 /*
  * 0 - STDIN_FILENO - standard input descriptor
  * 1 - STDOUT_FILENO - standard output descriptor
