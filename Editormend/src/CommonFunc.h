@@ -17,6 +17,7 @@
 class Common : public AllControllers
 {
 public:
+  Common();                    // default cstr
   Common(AllControllers* all); // cstr
 
   /*
@@ -56,4 +57,5 @@ private:
   ConfigurationController* m_pCnfg;
   Adbfr m_abfr;
   Terminal tml;
+  AllControllers* m_All;
 };

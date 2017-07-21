@@ -10,6 +10,11 @@
 #include "stdafx.h"
 #include "CommonFunc.h"
 
+Common::Common()
+{
+  m_All = tml.getAllControllerObj();
+  m_pCnfg = m_All->getConfigObj();
+}
 
 Common::Common(AllControllers* all) : m_pCnfg(all->getConfigObj())
 {
