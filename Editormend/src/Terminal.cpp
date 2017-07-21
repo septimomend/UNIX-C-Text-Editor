@@ -12,8 +12,8 @@
 
 Terminal::Terminal() // cstr
 {
-  ConfigurationController* configObj = all.getConfigObj();
-  struct termios* termObj = configObj->getTermios();
+  configObj = all.getConfigObj();
+  termObj = configObj->getTermios();
 }
 
 
