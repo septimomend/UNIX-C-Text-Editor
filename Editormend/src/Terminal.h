@@ -18,13 +18,15 @@ class Terminal
 public:
   Terminal(); // cstr
 
-  void emergencyDestruction(const char* str); // when something wrong
+  void emergencyDestruction(const char* str);   // when something wrong
   void rowModeOn(); //
   void rowModeOff();
 
-  int whatKey(); // defines key pressing
+  int whatKey();                                // defines key pressing
   int getCursorPosition(int *row, int *column); // returns cursor position
-  int getWindowSize(int *row, int *column); // returns size of window
+  int getWindowSize(int *row, int *column);     // returns size of window
+
+  AllControllers getAllControllerObj() const;
 
 private:
   AllControllers all;
