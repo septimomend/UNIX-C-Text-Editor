@@ -31,7 +31,7 @@
 #define _GNU_SOURCE
 
 #define EDITORMEND_VERSION "0.0.1"
-#define SEPT_TAB_STOP 8
+#define EDITORMEND_TBL_STOP 5
 #define EDITORRMEND_QUIT_COUNTER 2
 
 #define CTRL_KEY(k) ((k) & 0x1f)
