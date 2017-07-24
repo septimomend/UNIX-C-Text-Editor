@@ -18,6 +18,13 @@ public:
   ConfigurationController();
   struct termios getTermios() const;
 
+  /*
+   * row operations
+   */
+  void updateRow(RowController *row);
+  void setRow(int num, char *str, size_t sz);
+  void setRowChar(RowController *row, int to, int ch);
+
 protected:
   int configX, configY;
   int rowX;
