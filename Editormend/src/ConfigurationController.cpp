@@ -21,7 +21,33 @@ struct termios ConfigurationController::getTermios() const
 
 void ConfigurationController::updateRow(RowController *row)
 {
-  // TODO
+  int tbl = 0;                              // tabulated counter
+  int j;
+  for (j = 0; j < row->size; j++)
+  {
+    if (row->pLetter[j] == '\t')            // if tabulate symbol is meeting
+      tbl++;                                // increment tabulated counter
+  }
+
+  free(row->pVisualize);                    // free memory
+  row->pVisualize = malloc(row->size + tbl*(EDITORMEND_TBL_STOP - 1) + 1);  // allocate new memory with adding of tabulation symbol
+
+  int indx = 0;
+  for (j = 0; j < row->size; j++)
+  {
+    if (row->pLetter[j] == '\t')                                  // if inputed TAB
+    {
+      row->pVisualize[indx++] = ' ';                              // fill it with spaces
+      while (indx % EDITORMEND_TBL_STOP != 0)                     // as many time as
+        row->pVisualize[indx++] = ' ';                            // macros EDITORMEND_TBL_STOP lets
+    }
+    else
+      row->pVisualize[indx++] = row->pLetter[j];                  // else set other letter
+  }
+  row->pVisualize[indx] = '\0';                                   // set EOF symbol after row is end
+  row->sizeRow = indx;                                            // and row size
+
+  pSyntaxObj->updateSyntax(row);                                  // update syntax of this row
 }
 
 void ConfigurationControllern::setRow(int num, char *str, size_t sz)
