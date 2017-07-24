@@ -88,3 +88,13 @@ void ConfigurationController::setRowChar(RowController *row, int to, int ch)
 {
   // TODO
 }
+
+int ConfigurationController::configX2RowX(RowController *row, int cnfgX)
+{
+  // TODO
+}
+
+int ConfigurationController::rowX2configX(RowController *row, int rowX)
+{
+  // TODO
+}
