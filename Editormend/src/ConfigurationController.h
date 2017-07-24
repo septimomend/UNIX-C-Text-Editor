@@ -24,6 +24,8 @@ public:
   void updateRow(RowController *row);
   void setRow(int num, char *str, size_t sz);
   void setRowChar(RowController *row, int to, int ch);
+  int configX2RowX(RowController *row, int cnfgX);
+  int rowX2configX(RowController *row, int rowX);
 
 protected:
   int configX, configY;
