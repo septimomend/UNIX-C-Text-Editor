@@ -104,7 +104,18 @@ int ConfigurationController::configX2RowX(RowController *row, int cnfgX)
   return rwX;
 }
 
-int ConfigurationController::rowX2configX(RowController *row, int rowX)
+int ConfigurationController::rowX2configX(RowController *row, int rwX)
 {
-  // TODO
+  int currentRowX = 0;
+  int cnfgX;
+  for (cnfgX = 0; cnfgX < row->size; cnfgX++)
+  {
+    if (row->pLetter[cnfgX] == '\t')                                                  // if tabulate
+      currentRowX += (EDITORMEND_TBL_STOP - 1) - (currentRowX % EDITORMEND_TBL_STOP); // add this space
+    currentRowX++;                                                                    // increment row X pos
+
+    if (currentRowX > rwX)                                                            // if current pos is more than is it
+      return cnfgX;                                                                   // return cnfgX
+  }
+  return cnfgX;                                                                       // cnfgX does not take into account a tabulate symbols
 }
