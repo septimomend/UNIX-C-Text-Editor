@@ -26,6 +26,7 @@ public:
   void setRowChar(RowController *row, int to, int ch);
   int configX2RowX(RowController *row, int cnfgX);
   int rowX2configX(RowController *row, int rwX);
+  void eraseRow(int isHere);
 
 protected:
   int configX, configY;
