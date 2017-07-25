@@ -19,8 +19,13 @@ public:
 
   ConfigurationController* getConfigObj() const;
 
+  /*
+   * editor operations
+   */
   void pickSyntaxClr();
-
+  void setChar(int ch);
+  void setNewline();
+  void deleteChar();
 
 private:
   SyntaxController snx[] = {

@@ -40,9 +40,6 @@ public:
   /*
    * editor operations
    */
-  void setChar(int ch);
-  void setNewline();
-  void deleteChar();
   void save();
   void find();
 
