@@ -119,3 +119,8 @@ int ConfigurationController::rowX2configX(RowController *row, int rwX)
   }
   return cnfgX;                                                                       // cnfgX does not take into account a tabulate symbols
 }
+
+void eraseRow(int isHere)
+{
+  // TODO
+}
