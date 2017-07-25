@@ -25,7 +25,7 @@ public:
   void setRow(int num, char *str, size_t sz);
   void setRowChar(RowController *row, int to, int ch);
   int configX2RowX(RowController *row, int cnfgX);
-  int rowX2configX(RowController *row, int rowX);
+  int rowX2configX(RowController *row, int rwX);
 
 protected:
   int configX, configY;
