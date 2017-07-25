@@ -13,12 +13,20 @@
 
 class RowController
 {
+public:
+  RowController();  // default cstr
+
+  /*
+   * operations
+   */
+  void freeThisRow();
+
 protected:
   int index;
   int size;
   int sizeRow;
   char *pLetter;
-  char *pVisualize; // ie render
+  char *pVisualize; // ie rendering
   unsigned char *pClr;
   int commentClr;
 };
