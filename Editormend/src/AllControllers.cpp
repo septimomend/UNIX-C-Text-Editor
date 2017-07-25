@@ -60,12 +60,12 @@ void AllControllers::pickSyntaxClr()
 
 void Common::setChar(int ch)
 {
-  if (m_pCnfg->configY == m_pCnfg->rowCount)  // if this is last line
+  if (configObj.configY == configObj.rowCount)  // if this is last line
   {
-    setRow(m_pCnfg->rowCount, "", 0);         // set new row with zero position and empty
+    setRow(configObj.rowCount, "", 0);         // set new row with zero position and empty
   }
-  setRowChar(&m_pCnfg->pRowObj[m_pCnfg->configY], m_pCnfg->configX, ch); // set char to last position in last row
-  m_pCnfg->configX++;                         // and increment row lenght for cursor
+  configObj.setRowChar(&configObj.pRowObj[configObj.configY], configObj.configX, ch); // set char to last position in last row
+  configObj.configX++;                         // and increment row lenght for cursor
 }
 
 void Common::setNewline()
