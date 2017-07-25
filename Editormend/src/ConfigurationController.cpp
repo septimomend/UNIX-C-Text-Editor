@@ -91,7 +91,17 @@ void ConfigurationController::setRowChar(RowController *row, int to, int ch)
 
 int ConfigurationController::configX2RowX(RowController *row, int cnfgX)
 {
-  // TODO
+  int rwX = 0;
+  int j;
+  // just calculate cursor position in row with adding tabs
+  //
+  for (j = 0; j < cnfgX; j++)
+  {
+    if (row->pLetter[j] == '\t')                                      // if there is tabulate symbol
+      rwX += (EDITORMEND_TBL_STOP - 1) - (rwX % EDITORMEND_TBL_STOP); // add this tab space to rowX value
+    rwX++;                                                            // increment of rowX
+  }
+  return rwX;
 }
 
 int ConfigurationController::rowX2configX(RowController *row, int rowX)
