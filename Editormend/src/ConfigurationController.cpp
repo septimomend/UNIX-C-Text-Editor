@@ -138,3 +138,13 @@ void eraseRow(int isHere)
   this->rowCount--;                                   // decrease rows
   this->smear++;                                      // changes
 }
+
+void ConfigurationController::aseLetterInRow(RowController *row, int isHere)
+{
+  // TODO
+}
+
+void ConfigurationController::str2Row(RowController *row, char *str, size_t sz)
+{
+  // TODO
+}
