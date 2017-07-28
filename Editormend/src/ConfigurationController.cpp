@@ -139,7 +139,7 @@ void eraseRow(int isHere)
   this->smear++;                                      // changes
 }
 
-void ConfigurationController::aseLetterInRow(RowController *row, int isHere)
+void ConfigurationController::eraseLetterInRow(RowController *row, int isHere)
 {
   // TODO
 }
