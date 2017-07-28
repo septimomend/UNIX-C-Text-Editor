@@ -122,5 +122,12 @@ int ConfigurationController::rowX2configX(RowController *row, int rwX)
 
 void eraseRow(int isHere)
 {
-  // TODO
+  if (isHere < 0 || isHere >= this->rowCount) // if position is out of rows
+    return;                                   // abort
+  this->pRowObj[isHere].freeThisRow();        // free memory
+  memmove(&this->pRowObj[isHere], &this->pRowObj[isHere + 1], sizeof(RowController) * (this->rowCount - isHere - 1));
+  for (int j = isHere; j < (this->rowCount - 1); j++) // erase
+    this->pRowObj[j].index--;
+  this->rowCount--;                                   // decrease rows
+  this->smear++;                                      // changes
 }
