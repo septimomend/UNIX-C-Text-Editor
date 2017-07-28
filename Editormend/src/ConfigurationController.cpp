@@ -86,7 +86,14 @@ void ConfigurationControllern::setRow(int num, char *str, size_t sz)
 
 void ConfigurationController::setRowChar(RowController *row, int to, int ch)
 {
-  // TODO
+  if (to < 0 || to > row->size)   // if it is out of row size
+    to = row->size;               // set row size fot it
+  row->pLetter = realloc(row->pLetter, row->size + 2);  // reallocate memory for new char
+  memmove(&row->pLetter[to + 1], &row->pLetter[to], row->size - to + 1); // shift others chars
+  row->size++;           // increase row size
+  row->pLetter[to] = ch; // set char
+  updateRow(row);        // update row
+  this->smear++;         // new changes
 }
 
 int ConfigurationController::configX2RowX(RowController *row, int cnfgX)
