@@ -141,7 +141,12 @@ void eraseRow(int isHere)
 
 void ConfigurationController::eraseLetterInRow(RowController *row, int isHere)
 {
-  // TODO
+  if (isHere < 0 || isHere >= row->size)                                          // check if not out
+    return;
+  memmove(&row->pLetter[isHere], &row->pLetter[isHere + 1], row->size - isHere);  // shift chars that was placed after erased char
+  row->size--;                                                                    // deacrase size
+  updateRow(row);                                                                 // update row
+  this->smear++;                                                                  // new changes
 }
 
 void ConfigurationController::str2Row(RowController *row, char *str, size_t sz)
