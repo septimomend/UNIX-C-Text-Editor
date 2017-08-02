@@ -151,5 +151,12 @@ void ConfigurationController::eraseLetterInRow(RowController *row, int isHere)
 
 void ConfigurationController::str2Row(RowController *row, char *str, size_t sz)
 {
-  // TODO
+  // implementation of copying logic
+  //
+  row->pLetter = realloc(row->pLetter, row->size + sz + 1);                       // reallocate memory for adding sz-sized of str and 1 byte for '\0'
+  memcpy(&row->pLetter[row->size], str, sz);                                      // copy sz bytes of this str to pLetter
+  row->size += sz;                                                                // increase size of row
+  row->pLetter[row->size] = '\0';                                                 // write EOF symbol to last byte
+  updateRow(row);                                                                 // update row
+  this->smear++;                                                                  // mark new changes
 }
