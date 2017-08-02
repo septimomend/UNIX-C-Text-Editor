@@ -48,7 +48,7 @@ void AllControllers::pickSyntaxClr()
           //
           for (pastRows = 0; pastRows < configObj.rowCount; pastRows++)
           {
-            updateSyntax(&configObj.pRowObj[pastRows]);
+            configObj.pSyntaxObj->updateSyntax(&configObj.pRowObj[pastRows]);
           }
           return;
         }
@@ -60,12 +60,12 @@ void AllControllers::pickSyntaxClr()
 
 void Common::setChar(int ch)
 {
-  if (configObj.configY == configObj.rowCount)  // if this is last line
+  if (configObj.configY == configObj.rowCount)                                        // if this is last line
   {
-    setRow(configObj.rowCount, "", 0);         // set new row with zero position and empty
+    configObj.setRow(configObj.rowCount, "", 0);                                                // set new row with zero position and empty
   }
   configObj.setRowChar(&configObj.pRowObj[configObj.configY], configObj.configX, ch); // set char to last position in last row
-  configObj.configX++;                         // and increment row lenght for cursor
+  configObj.configX++;                                                                // and increment row lenght for cursor
 }
 
 void Common::setNewline()
