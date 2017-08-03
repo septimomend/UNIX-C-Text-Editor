@@ -16,7 +16,7 @@ class ConfigurationController : public SyntaxController
 {
 public:
   ConfigurationController();
-  
+
   struct termios getTermios() const;
 
   /*
@@ -30,6 +30,7 @@ public:
   void eraseRow(int isHere);
   void eraseLetterInRow(RowController *row, int isHere);
   void str2Row(RowController *row, char *str, size_t sz);
+  char* row2Str(int* buffzs);
 
 protected:
   int configX, configY;
