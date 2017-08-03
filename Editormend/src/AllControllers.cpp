@@ -61,16 +61,28 @@ void AllControllers::pickSyntaxClr()
 void Common::setChar(int ch)
 {
   if (configObj.configY == configObj.rowCount)                                        // if this is last line
-  {
-    configObj.setRow(configObj.rowCount, "", 0);                                                // set new row with zero position and empty
-  }
+    configObj.setRow(configObj.rowCount, "", 0);                                      // set new row with zero position and empty
   configObj.setRowChar(&configObj.pRowObj[configObj.configY], configObj.configX, ch); // set char to last position in last row
   configObj.configX++;                                                                // and increment row lenght for cursor
 }
 
 void Common::setNewline()
 {
-  // TODO
+  if (configObj.configX == 0)                                                         // if this is zero position in row
+    configObj.setRow(configObj.configY, "", 0);                                       // set empty line
+  else
+  {
+    RowController *row = &configObj.pRowObj[configObj.configY];                       // get line
+    // and set newline with moved data sized size - configX
+    //
+    configObj.setRow(configObj.configY + 1, &row->pLetter[configObj.configX], row->size - configObj.configX);
+    row = &configObj.pRowObj[configObj.configY];
+    row->size = configObj.configX;                                                    // update size
+    row->pLetter[row->size] = '\0';                                                   // and add end of line symbol
+    configObj.updateRow(row);
+  }
+  configObj.configY++;                                                                // increase line count
+  configObj.configX = 0;                                                              // set position at line start
 }
 
 void Common::deleteChar()
