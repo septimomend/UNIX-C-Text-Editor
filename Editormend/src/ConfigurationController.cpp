@@ -160,3 +160,8 @@ void ConfigurationController::str2Row(RowController *row, char *str, size_t sz)
   updateRow(row);                                                                 // update row
   this->smear++;                                                                  // mark new changes
 }
+
+char* ConfigurationController::row2Str(int* buffzs)
+{
+  // TODO
+}
