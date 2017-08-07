@@ -40,6 +40,7 @@ public:
   /*
    * editor operations
    */
+  void openFile(char *filename);
   void save();
   void find();
 
