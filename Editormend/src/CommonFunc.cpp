@@ -20,6 +20,11 @@ Common::Common(AllControllers* all) : m_pCnfg(all->getConfigObj())
 {
 }
 
+void Common::openFile(char *filename)
+{
+  // TODO
+}
+
 void Common::save()
 {
   // TODO
