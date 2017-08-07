@@ -87,5 +87,24 @@ void Common::setNewline()
 
 void Common::deleteChar()
 {
-  // TODO
+  if (configObj.configY == configObj.rowCount)            // can't to delete next char
+    return;
+  if (configObj.configX == 0 && configObj.configY == 0)   // nothing for deleting
+    return;
+
+  RowController *row = &configObj.pRowObj[configObj.configY];
+  if (configObj.configX > 0)                              // if row is not empty
+  {
+    configObj.eraseLetterInRow(row, configObj.configX - 1); // delete this char
+    configObj.configX--;                                    // and decrease length of row
+  }
+  else
+  {
+    configObj.configX = configObj.pRowObj[configObj.configY - 1].size;// end of row
+    // connect string to row (shift up)
+    //
+    configObj.str2Row(&configObj.pRowObj[configObj.configY - 1], row->pLetter, row->size);
+    eraseRow(configObj.configY);                                      // and erase row
+    configObj.configY--;                                              // length is decreasing
+  }
 }
