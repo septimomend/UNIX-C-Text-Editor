@@ -30,7 +30,7 @@ public:
   void eraseRow(int isHere);
   void eraseLetterInRow(RowController *row, int isHere);
   void str2Row(RowController *row, char *str, size_t sz);
-  char* row2Str(int* buffzs);
+  char* row2Str(int* buffsz);
 
 protected:
   int configX, configY;
