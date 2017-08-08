@@ -161,7 +161,22 @@ void ConfigurationController::str2Row(RowController *row, char *str, size_t sz)
   this->smear++;                                                                  // mark new changes
 }
 
-char* ConfigurationController::row2Str(int* buffzs)
+char* ConfigurationController::row2Str(int* buffsz)
 {
-  // TODO
+  int totalsz = 0;
+  int j;
+  for (j = 0; j < this->rowCount; j++)
+    totalsz += this->pRowObj[j].size + 1;                                         // get total size and 1 additional byte for '\n'
+  *buffsz = totalsz;
+
+  char *pBuff = malloc(totalsz);                                                  // allocate memory for string
+  char *p = pBuff;
+  for (j = 0; j < this->rowCount; j++)
+  {
+    memcpy(p, this->pRowObj[j].pLetter, this->pRowObj[j].size);                   // copy data to p
+    p += this->pRowObj[j].size;                                                   // shift index by size
+    *p = '\n';                                                                    // add end of string
+    p++;
+  }
+  return pBuff;                                                                   // return string
 }
