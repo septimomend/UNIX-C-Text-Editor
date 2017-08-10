@@ -22,7 +22,28 @@ Common::Common(AllControllers* all) : m_pCnfg(all->getConfigObj())
 
 void Common::openFile(char *filename)
 {
-  // TODO
+  free(m_pCnfg->pFilename);                                                       // free pFilename becouse strdup uses malloc and in next func
+                                                                                  // call need to free memory
+  m_pCnfg->pFilename = strdup(filename);                                          // duplicate filename to pFilename
+
+  m_All->pickSyntaxClr();
+
+  FILE* fln = fopen(filename, "r");                                                // open file foe reading
+  if (!fln)                                                                        // if can't to open file
+    tml.emergencyDestruction("fopen");                                            // forced closure
+
+  char* pStr = NULL;
+  size_t strUSZ = 0;                                                              // size
+  ssize_t strSSZ;                                                                 // signed size
+  while ((strSSZ = getline(&pStr, &strUSZ, fln)) != -1)                            // while strUSZ size of pStr that reads from file fp
+  {
+    while (strSSZ > 0 && (pStr[strSSZ - 1] == '\n' || pStr[strSSZ - 1] == '\r'))  // if this is end of line
+      strSSZ--;                                                                   // decrease line size
+    m_pCnfg->setRow(m_pCnfg->rowCount, pStr, strSSZ);                             // set rows from file
+  }
+  free(pStr);
+  fclose(fln);                                                                    // close file
+  m_pCnfg->smear = 0;                                                             // no changes in now opened file
 }
 
 void Common::save()
