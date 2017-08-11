@@ -46,6 +46,11 @@ void Common::openFile(char *filename)
   m_pCnfg->smear = 0;                                                             // no changes in now opened file
 }
 
+void detectCallback(char* query, int key)
+{
+  // TODO
+}
+
 void Common::save()
 {
   // TODO
