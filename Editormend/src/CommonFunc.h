@@ -30,9 +30,9 @@ public:
   /*
    * operations
    */
-  void statusMsg(const char *fmt, ...);
+  void statusMsg(const char* fmt, ...);
   void updateScreen();
-  char *callPrompt(char *prompt, void (*callback)(char *, int));
+  char *callPrompt(char *prompt, void (*callback)(char*, int));
   void scrolling();
   void moveCursor(int key);
   void processingKeypress();
@@ -40,7 +40,8 @@ public:
   /*
    * editor operations
    */
-  void openFile(char *filename);
+  void openFile(char* filename);
+  void detectCallback(char* query, int key);
   void save();
   void find();
 
