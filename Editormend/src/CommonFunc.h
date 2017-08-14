@@ -49,5 +49,5 @@ private:
   ConfigurationController* m_pCnfg;
   Adbfr m_abfr;
   Terminal tml;
-  AllControllers* m_All;
+  AllControllers* m_pAll;
 };
