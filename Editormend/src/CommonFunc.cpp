@@ -12,8 +12,8 @@
 
 Common::Common()
 {
-  m_All = tml.getAllControllerObj();
-  m_pCnfg = m_All->getConfigObj();
+  m_pAll = tml.getAllControllerObj();
+  m_pCnfg = m_pAll->getConfigObj();
 }
 
 Common::Common(AllControllers* all) : m_pCnfg(all->getConfigObj())
@@ -26,7 +26,7 @@ void Common::openFile(char *filename)
                                                                                   // call need to free memory
   m_pCnfg->pFilename = strdup(filename);                                          // duplicate filename to pFilename
 
-  m_All->pickSyntaxClr();
+  m_pAll->pickSyntaxClr();
 
   FILE* fln = fopen(filename, "r");                                                // open file foe reading
   if (!fln)                                                                        // if can't to open file
@@ -53,7 +53,39 @@ void detectCallback(char* query, int key)
 
 void Common::save()
 {
-  // TODO
+  if (m_pCnfg->pFilename == NULL)                                               // if no falename
+  {
+    m_pCnfg->pFilename = callPrompt("Save as: %s (ESC - cancel)", NULL);        // set message
+    if (m_pCnfg->pFilename == NULL)                                             // if filename still is not
+    {
+      statusMsg("Saving operation is canceled");                                // lead out status message about cancelling
+      return;                                                                   // and go out of save function
+    }
+    m_pAll->pickSyntaxClr();                                                    // colorize text in dependence of filename extension
+  }
+
+  size_t sz;
+  char *pBuff = m_pCnfg->row2Str(&sz);                                          // get strings and size of these
+
+  int fd = open(m_pCnfg->pFilename, O_RDWR | O_CREAT, 0644);                    // open the file for read/write and if the file does not exist, it will be created
+                                                                                // 0644 - look here: https://stackoverflow.com/questions/18415904/what-does-mode-t-0644-mean
+  if (fd != -1)
+  {
+    if (ftruncate(fd, sz) != -1)                                                // set file size
+    {
+      if (write(fd, pBuff, sz) == sz)                                           // if writing from buffer to file is success
+      {
+        close(fd);                                                              // close
+        free(pBuff);                                                            // free memory
+        m_pCnfg->smear = 0;                                                     // no changes in syntax after copying to file
+        statusMsg("%d bytes is written successfully", sz);                      // set status message
+        return;                                                                 // go out
+      }
+    }
+    close(fd);                                                                  // if can't change size - close file
+  }
+  free(pBuff);                                                                  // free buffer
+  statusMsg("Saving operation has error: %s", strerror(errno));                 // lead out error about
 }
 
 void Common::find()
