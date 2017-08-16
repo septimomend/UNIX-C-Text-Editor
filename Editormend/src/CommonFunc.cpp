@@ -20,79 +20,9 @@ Common::Common(AllControllers* all) : m_pCnfg(all->getConfigObj())
 {
 }
 
-void Common::openFile(char *filename)
-{
-  free(m_pCnfg->pFilename);                                                       // free pFilename becouse strdup uses malloc and in next func
-                                                                                  // call need to free memory
-  m_pCnfg->pFilename = strdup(filename);                                          // duplicate filename to pFilename
-
-  m_pAll->pickSyntaxClr();
-
-  FILE* fln = fopen(filename, "r");                                                // open file foe reading
-  if (!fln)                                                                        // if can't to open file
-    tml.emergencyDestruction("fopen");                                            // forced closure
-
-  char* pStr = NULL;
-  size_t strUSZ = 0;                                                              // size
-  ssize_t strSSZ;                                                                 // signed size
-  while ((strSSZ = getline(&pStr, &strUSZ, fln)) != -1)                            // while strUSZ size of pStr that reads from file fp
-  {
-    while (strSSZ > 0 && (pStr[strSSZ - 1] == '\n' || pStr[strSSZ - 1] == '\r'))  // if this is end of line
-      strSSZ--;                                                                   // decrease line size
-    m_pCnfg->setRow(m_pCnfg->rowCount, pStr, strSSZ);                             // set rows from file
-  }
-  free(pStr);
-  fclose(fln);                                                                    // close file
-  m_pCnfg->smear = 0;                                                             // no changes in now opened file
-}
-
-void detectCallback(char* query, int key)
-{
-  // TODO
-}
-
-void Common::save()
-{
-  if (m_pCnfg->pFilename == NULL)                                               // if no falename
-  {
-    m_pCnfg->pFilename = callPrompt("Save as: %s (ESC - cancel)", NULL);        // set message
-    if (m_pCnfg->pFilename == NULL)                                             // if filename still is not
-    {
-      statusMsg("Saving operation is canceled");                                // lead out status message about cancelling
-      return;                                                                   // and go out of save function
-    }
-    m_pAll->pickSyntaxClr();                                                    // colorize text in dependence of filename extension
-  }
-
-  size_t sz;
-  char *pBuff = m_pCnfg->row2Str(&sz);                                          // get strings and size of these
-
-  int fd = open(m_pCnfg->pFilename, O_RDWR | O_CREAT, 0644);                    // open the file for read/write and if the file does not exist, it will be created
-                                                                                // 0644 - look here: https://stackoverflow.com/questions/18415904/what-does-mode-t-0644-mean
-  if (fd != -1)
-  {
-    if (ftruncate(fd, sz) != -1)                                                // set file size
-    {
-      if (write(fd, pBuff, sz) == sz)                                           // if writing from buffer to file is success
-      {
-        close(fd);                                                              // close
-        free(pBuff);                                                            // free memory
-        m_pCnfg->smear = 0;                                                     // no changes in syntax after copying to file
-        statusMsg("%d bytes is written successfully", sz);                      // set status message
-        return;                                                                 // go out
-      }
-    }
-    close(fd);                                                                  // if can't change size - close file
-  }
-  free(pBuff);                                                                  // free buffer
-  statusMsg("Saving operation has error: %s", strerror(errno));                 // lead out error about
-}
-
-void Common::find()
-{
-  // TODO
-}
-
+/*
+ * draws
+ */
 void Common::drawRows(Adbfr* abfr);
 {
   // TODO
@@ -108,11 +38,9 @@ void Common::drawMessageBar(Adbfr* abfr)
   // TODO
 }
 
-void Common::scrolling()
-{
-  // TODO
-}
-
+ /*
+  * operations
+  */
 void Common::statusMsg(const char *fmt, ...)
 {
   va_list arg;         // for unknown number of parameters
@@ -209,6 +137,11 @@ char* Common::callPrompt(char *prompt, void (*callback)(char*, int))
     if (callback)
       callback(bfr, key);   // call of callback
   }
+}
+
+void Common::scrolling()
+{
+  // TODO
 }
 
 void Common::moveCursor(int key)
@@ -346,4 +279,80 @@ void Common::processingKeypress()
   }
 
   sQuitCounter = EDITORRMEND_QUIT_COUNTER;
+}
+
+/*
+ * editor operations
+ */
+void Common::openFile(char *filename)
+{
+  free(m_pCnfg->pFilename);                                                       // free pFilename becouse strdup uses malloc and in next func
+                                                                                  // call need to free memory
+  m_pCnfg->pFilename = strdup(filename);                                          // duplicate filename to pFilename
+
+  m_pAll->pickSyntaxClr();
+
+  FILE* fln = fopen(filename, "r");                                                // open file foe reading
+  if (!fln)                                                                        // if can't to open file
+    tml.emergencyDestruction("fopen");                                            // forced closure
+
+  char* pStr = NULL;
+  size_t strUSZ = 0;                                                              // size
+  ssize_t strSSZ;                                                                 // signed size
+  while ((strSSZ = getline(&pStr, &strUSZ, fln)) != -1)                            // while strUSZ size of pStr that reads from file fp
+  {
+    while (strSSZ > 0 && (pStr[strSSZ - 1] == '\n' || pStr[strSSZ - 1] == '\r'))  // if this is end of line
+      strSSZ--;                                                                   // decrease line size
+    m_pCnfg->setRow(m_pCnfg->rowCount, pStr, strSSZ);                             // set rows from file
+  }
+  free(pStr);
+  fclose(fln);                                                                    // close file
+  m_pCnfg->smear = 0;                                                             // no changes in now opened file
+}
+
+void detectCallback(char* query, int key)
+{
+  // TODO
+}
+
+void Common::save()
+{
+  if (m_pCnfg->pFilename == NULL)                                               // if no falename
+  {
+    m_pCnfg->pFilename = callPrompt("Save as: %s (ESC - cancel)", NULL);        // set message
+    if (m_pCnfg->pFilename == NULL)                                             // if filename still is not
+    {
+      statusMsg("Saving operation is canceled");                                // lead out status message about cancelling
+      return;                                                                   // and go out of save function
+    }
+    m_pAll->pickSyntaxClr();                                                    // colorize text in dependence of filename extension
+  }
+
+  size_t sz;
+  char *pBuff = m_pCnfg->row2Str(&sz);                                          // get strings and size of these
+
+  int fd = open(m_pCnfg->pFilename, O_RDWR | O_CREAT, 0644);                    // open the file for read/write and if the file does not exist, it will be created
+                                                                                // 0644 - look here: https://stackoverflow.com/questions/18415904/what-does-mode-t-0644-mean
+  if (fd != -1)
+  {
+    if (ftruncate(fd, sz) != -1)                                                // set file size
+    {
+      if (write(fd, pBuff, sz) == sz)                                           // if writing from buffer to file is success
+      {
+        close(fd);                                                              // close
+        free(pBuff);                                                            // free memory
+        m_pCnfg->smear = 0;                                                     // no changes in syntax after copying to file
+        statusMsg("%d bytes is written successfully", sz);                      // set status message
+        return;                                                                 // go out
+      }
+    }
+    close(fd);                                                                  // if can't change size - close file
+  }
+  free(pBuff);                                                                  // free buffer
+  statusMsg("Saving operation has error: %s", strerror(errno));                 // lead out error about
+}
+
+void Common::find()
+{
+  // TODO
 }
