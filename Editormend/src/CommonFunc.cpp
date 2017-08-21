@@ -354,5 +354,23 @@ void Common::save()
 
 void Common::find()
 {
-  // TODO
+  // remember last data
+  //
+  int xsave = m_pCnfg->configX;
+  int ysave = m_pCnfg->configY;
+  int prevclr = m_pCnfg->disableClr;
+  int prevrow = m_pCnfg->disableRow;
+
+  char* callb = callPrompt("Find: %s (ESC - cancel/Arrows - move/Enter)", detectCallback);
+
+  // if there are changes returned [enter]
+  if (callb)
+    free(callb);
+  else                                                                          // else return saved data [esc]
+  {
+    m_pCnfg->configX = xsave;
+    m_pCnfg->configY = ysave;
+    m_pCnfg->disableClr = prevclr;
+    m_pCnfg->disableRow;
+  }
 }
