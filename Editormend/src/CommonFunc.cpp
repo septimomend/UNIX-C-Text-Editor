@@ -141,7 +141,17 @@ char* Common::callPrompt(char *prompt, void (*callback)(char*, int))
 
 void Common::scrolling()
 {
-  // TODO
+  m_pCnfg->rowX = 0;
+  if (m_pCnfg->configY < m_pCnfg->rowCount)                                     // if cursor is not in the finish row
+    m_pCnfg->rowX = m_pCnfg->configX2RowX(&m_pCnfg->pRowObj[m_pCnfg->configY], m_pCnfg->configX); // calculate cursor position at X axis
+  if (m_pCnfg->configY < m_pCnfg->disableRow)                                   // if rows are invisible - scroll
+    m_pCnfg->disableRow = m_pCnfg->configY;
+  if (m_pCnfg->configY >= m_pCnfg->disableRow + m_pCnfg->enableRow)             // if cursor is in invisible row
+    m_pCnfg->disableRow = m_pCnfg->configY - m_pCnfg->enableRow + 1;            // scroll and set invisible rows that after row with cursor
+  if (m_pCnfg->rowX < m_pCnfg->disableClr)                                      // if part of row is invisible at horizontal
+    m_pCnfg->disableClr = m_pCnfg->rowX;                                        // scroll
+  if (m_pCnfg->rowX >= m_pCnfg->disableClr + m_pCnfg->enableClr)                // set visible row
+    m_pCnfg->disableClr = m_pCnfg->rowX - m_pCnfg->enableClr + 1;
 }
 
 void Common::moveCursor(int key)
