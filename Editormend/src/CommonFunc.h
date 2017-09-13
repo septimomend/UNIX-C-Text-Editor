@@ -23,7 +23,7 @@ public:
   /*
    * draws
    */
-  void drawRows(Adbfr* abfr);
+  void drawRows();
   void drawStatusBar(Adbfr* abfr);
   void drawMessageBar(Adbfr* abfr);
 
