@@ -23,9 +23,88 @@ Common::Common(AllControllers* all) : m_pCnfg(all->getConfigObj())
 /*
  * draws
  */
-void Common::drawRows(Adbfr* abfr);
+void Common::drawRows();
 {
-  // TODO
+  int y;
+  for (y = 0; y < m_pCnfg->enableRow; y++)
+  {
+    int certrow = y + m_pCnfg->disableRow;                                      // get file-wide row
+    if (certrow >= m_pCnfg->rowCount)                                           // if this value is more than row length
+    {
+      // if no rows
+      if ((m_pCnfg->rowCount == 0) && (y == m_pCnfg->enableRow / 3))
+      {
+        char greet[80];
+        int greetsz = snprintf(greet, sizeof(greet), "Editormend (version %s)", EDITORMEND_VERSION); // post greeting
+        if (greetsz > m_pCnfg->enableClr)
+          greetsz = m_pCnfg->enableClr;
+        int lining = (m_pCnfg->enableClr - greetsz) / 2;
+        if (lining)
+        {
+          m_abfr.reallocateBfr("~", 1);                                         // set '~' at every line
+          lining--;
+        }
+        while (lining--)
+          m_abfr.reallocateBfr(" ", 1);                                         // replace to space
+        m_abfr.reallocateBfr(greet, greetsz);                                   // set greeting
+      }
+      else
+        m_abfr.reallocateBfr("~", 1);
+    }
+    else
+    {
+      int sz = m_pCnfg->pRowObj[certrow].sizeRow - m_pCnfg->disableClr;
+      if (sz < 0)
+        sz = 0;
+      if (sz > m_pCnfg->enableClr)
+        sz = m_pCnfg->enableClr;
+      char *c = &m_pCnfg->pRowObj[certrow].pVisualize[m_pCnfg->disableClr];
+      unsigned char *hl = &m_pCnfg->pRowObj[certrow].pClr[m_pCnfg->disableClr];
+      int currClr = -1;
+      int j;
+      for (j = 0; j < sz; j++)
+      {
+        // if this is control parameter
+        if (iscntrl(c[j]))
+        {
+          char symbol = (c[j] <= 26) ? '@' + c[j] : '?';
+          m_abfr.reallocateBfr("\x1b[7m", 4);
+          m_abfr.reallocateBfr(&symbol, 1);
+          m_abfr.reallocateBfr("\x1b[m", 3);
+          if (currClr != -1)
+          {
+            char buff[16];
+            int csz = snprintf(buff, sizeof(buff), "\x1b[%dm", currClr);       // output buffer with color
+            m_abfr.reallocateBfr(buff, csz);
+          }
+        }
+        else if (hl[j] == CLR_NORMAL)
+        {
+          if (currClr != -1)
+          {
+            m_abfr.reallocateBfr("\x1b[39m", 5);
+            currClr = -1;
+          }
+          m_abfr.reallocateBfr(&c[j], 1);
+        }
+        else
+        {
+          int color = m_pCnfg->pSyntaxObj->colorizeSyntax(hl[j]);               // get color
+          if (color != currClr)
+          {
+            currClr = color;                                                    // set color
+            char buff[16];
+            int csz = snprintf(buff, sizeof(buf), "\x1b[%dm", color);
+            m_abfr.reallocateBfr(buff, csz);
+          }
+          m_abfr.reallocateBfr(&c[j], 1);
+        }
+      }
+      m_abfr.reallocateBfr("\x1b[39m", 5);
+    }
+    m_abfr.reallocateBfr("\x1b[K", 3);
+    m_abfr.reallocateBfr("\r\n", 2);
+  }
 }
 
 void Common::drawStatusBar(Adbfr* abfr)
@@ -62,7 +141,7 @@ void Common::updateScreen()
   /*
    * draw rows, message bar and status bar
    */
-  drawRows(&m_abfr);
+  drawRows();
   drawStatusBar(&m_abfr);
   drawMessageBar(&m_abfr);
 
@@ -182,7 +261,7 @@ void Common::moveCursor(int key)
       else if (pRowctrl && m_pCnfg->configX == pRowctrl->size)      // if there is row and cursor in the end of this row
       {
         m_pCnfg->configY++;                                         // move to next row
-        E.cx = 0;                                                   // on zero position
+        m_pCnfg->cx = 0;                                                   // on zero position
       }
       break;
     case ARROW_UP:
