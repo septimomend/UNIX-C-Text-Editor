@@ -16,16 +16,16 @@ Adbfr::Adbfr() // cstr
 
 void reallocateBfr(const char *content, int size)
 {
-  char *newPlace = realloc(this->bfr, this->sizeBfr + size); // reallocate memory
+  char *newPlace = realloc(this->bfr, this->sizeBfr + size);                    // reallocate memory
 
   if (newPlace == NULL)
-    return;        // if reallocation is false
-  memcpy(&newPlace[this->sizeBfr], content, size); // fill new allocated memory by content
+    return;                                                                     // if reallocation is false
+  memcpy(&newPlace[this->sizeBfr], content, size);                              // fill new allocated memory by content
   this->bfr = newPlace;
   this->sizeBfr += size;
 }
 
 void freeBfr()
 {
-  free(this->bfr); // free memory
+    free(this->bfr);                                                            // free memory
 }
