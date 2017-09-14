@@ -107,9 +107,34 @@ void Common::drawRows();
   }
 }
 
-void Common::drawStatusBar(Adbfr* abfr)
+void Common::drawStatusBar()
 {
-  // TODO
+  m_abfr.reallocateBfr("\x1b[7m", 4);                                           // swap foreground and background
+  char status[80], statusRow[80];
+  // post status data - filename->number of rows->changes
+  int sz = snprintf(status, sizeof(status), "%.20s - %d rows %s", m_pCnfg->pFilename ? m_pCnfg->pFilename : "---.-",
+    m_pCnfg->rowCount, m_pCnfg->smear ? "*" : "");
+  // post row status data - type of file->current row number->number of rows
+  int szRow = snprintf(statusRow, sizeof(statusRow), "%s | %d/%d", m_pCnfg->pSyntaxObj ? m_pCnfg->pSyntaxObj->pFileType : "<no type>",
+    m_pCnfg->configY + 1, m_pCnfg->rowCount);
+  if (sz > m_pCnfg->enableClr)
+    sz = m_pCnfg->enableClr;                                                    // if out of range set last value
+  m_abfr.reallocateBfr(status, sz);                                             // add status to common buffer
+  while (sz < m_pCnfg->enableClr)
+  {
+    if (m_pCnfg->enableClr - sz == szRow)
+    {
+      m_abfr.reallocateBfr(statusRow, szRow);                                   // move bar
+      break;
+    }
+    else
+    {
+      m_abfr.reallocateBfr(" ", 1);
+      sz++;
+    }
+  }
+  m_abfr.reallocateBfr("\x1b[m", 3);
+  m_abfr.reallocateBfr("\r\n", 2);
 }
 
 void Common::drawMessageBar(Adbfr* abfr)
