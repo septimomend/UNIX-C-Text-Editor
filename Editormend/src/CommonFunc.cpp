@@ -111,9 +111,9 @@ void Common::drawStatusBar()
 {
   m_abfr.reallocateBfr("\x1b[7m", 4);                                           // swap foreground and background
   char status[80], statusRow[80];
-  // post status data - filename->number of rows->changes
-  int sz = snprintf(status, sizeof(status), "%.20s - %d rows %s", m_pCnfg->pFilename ? m_pCnfg->pFilename : "---.-",
-    m_pCnfg->rowCount, m_pCnfg->smear ? "*" : "");
+  // post status data - filename->changes->number of rows
+  int sz = snprintf(status, sizeof(status), "%.20s%s - %d rows", m_pCnfg->pFilename ? m_pCnfg->pFilename : "---.-",
+    m_pCnfg->smear ? "*" : "", m_pCnfg->rowCount);
   // post row status data - type of file->current row number->number of rows
   int szRow = snprintf(statusRow, sizeof(statusRow), "%s | %d/%d", m_pCnfg->pSyntaxObj ? m_pCnfg->pSyntaxObj->pFileType : "<no type>",
     m_pCnfg->configY + 1, m_pCnfg->rowCount);
