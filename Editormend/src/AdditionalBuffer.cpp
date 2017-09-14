@@ -20,9 +20,9 @@ void reallocateBfr(const char *content, int size)
 
   if (newPlace == NULL)
     return;                                                                     // if reallocation is false
-  memcpy(&newPlace[this->sizeBfr], content, size);                              // fill new allocated memory by content
-  this->bfr = newPlace;
-  this->sizeBfr += size;
+  memcpy(&newPlace[this->sizeBfr], content, size);                              // fill new allocated memory by content started from last storage data
+  this->bfr = newPlace;                                                         // reinitialize buffer
+  this->sizeBfr += size;                                                        // add added size
 }
 
 void freeBfr()
