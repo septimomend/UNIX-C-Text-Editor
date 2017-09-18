@@ -137,9 +137,14 @@ void Common::drawStatusBar()
   m_abfr.reallocateBfr("\r\n", 2);
 }
 
-void Common::drawMessageBar(Adbfr* abfr)
+void Common::drawMessageBar()
 {
-  // TODO
+  m_abfr.reallocateBfr("\x1b[K", 3);                                            // clear from cursor to the end of the line
+  int msgsz = strlen(m_pCnfg->statusMessage);                                   // get message size
+  if (msgsz > m_pCnfg->enableClr)
+    msgsz = m_pCnfg->enableClr;                                                 //
+  if (msgsz && (time(NULL) - m_pCnfg->statusMessageTime) < 5)                   // if message is not empty & not old
+    m_abfr.reallocateBfr(m_pCnfg->statusMessage, msgsz);                        // write to buffer
 }
 
  /*
